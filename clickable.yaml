@@ -1,0 +1,23 @@
+clickable_minimum_required: 7.1.2
+builder: custom
+build: "bash ${ROOT}/build.sh"
+kill: webrtcdemo
+dependencies_ppa:
+  - "\"deb [arch=amd64] http://archive.ubuntu.com/ubuntu xenial-backports universe restricted multiverse main\""
+  - "\"deb [arch=arm64,armhf] http://ports.ubuntu.com/ubuntu-ports xenial-backports universe restricted multiverse main\""
+dependencies_host:
+  - python3-httplib2
+  - libxtst-dev
+  - libxss-dev
+  - libpci-dev
+  - libdbus-1-dev
+  - libnss3-dev
+  - libasound2-dev
+  - libudev-dev
+  - clang-6.0
+  - qemu-user-static
+  - ninja-build
+dependencies_target:
+  - qtmultimedia5-dev
+  - libpulse-dev
+  - libglib2.0-dev

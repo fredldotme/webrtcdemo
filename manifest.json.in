@@ -1,0 +1,15 @@
+{
+    "name": "webrtcdemo.fredldotme",
+    "description": "Demonstrate WebRTC capabilities",
+    "architecture": "@CLICK_ARCH@",
+    "title": "WebRTC Demo",
+    "hooks": {
+        "webrtcdemo": {
+            "apparmor": "webrtcdemo.apparmor",
+            "desktop":  "webrtcdemo.desktop"
+        }
+    },
+    "version": "0.0.1",
+    "maintainer": "Alfred Neumayer <dev.beidl@gmail.com>",
+    "framework" : "@CLICK_FRAMEWORK@"
+}
