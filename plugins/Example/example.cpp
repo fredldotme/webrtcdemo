@@ -137,6 +137,7 @@ void WebRTCConnector::negotiate()
     QVariantMap constraints;
     constraints.insert("receiveVideo", 1);
     constraints.insert("receiveAudio", 1);
+    constraints.insert("voiceActivityDetection", 0);
     m_peerConnection->createOfferForConstraints(constraints,
                                                 [=](const QSharedPointer<QWebRTCSessionDescription>& description) {
         qDebug() << "createOfferForConstraints";

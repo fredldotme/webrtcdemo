@@ -21,3 +21,6 @@ dependencies_target:
   - qtmultimedia5-dev
   - libpulse-dev
   - libglib2.0-dev
+  - libhybris-common-dev
+  - libmedia-dev
+  - libprotobuf-dev

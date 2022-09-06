@@ -13,7 +13,9 @@ cd $blddir
 # WebRTC
 export PATH=$PATH:$blddir/depot_tools
 export VPYTHON_BYPASS="manually managed python not supported by chrome operations"
+export PYTHONDONTWRITEBYTECODE=1
 export DEPOT_TOOLS_UPDATE=0
+export PKG_CONFIG_PATH=/usr/lib/$ARCH_TRIPLET/pkgconfig:$PKG_CONFIG_PATH
 
 #wget http://launchpadlibrarian.net/534747115/libc6_2.23-0ubuntu11.3_amd64.deb
 #dpkg -x libc6_2.23-0ubuntu11.3_amd64.deb ./
@@ -25,7 +27,9 @@ if [ ! -d $blddir/libwebrtc ]; then
 	mkdir $blddir/libwebrtc
 fi
 cd $blddir/libwebrtc
-cmake $srcdir/3rdparty/libwebrtc
+cmake \
+	-DTARGET_CPU=$ARCH \
+	$srcdir/3rdparty/libwebrtc
 make -j8
 
 
@@ -54,12 +58,9 @@ cd $blddir/qwebrtc
 cmake \
 	-DCMAKE_CXX_FLAGS="-isystem $blddir/libwebrtc/include -isystem $blddir/libyuv/include -L$blddir/libwebrtclib -L$blddir/libyuv -Wno-deprecated-declarations -Wl,-rpath-link,$blddir/libwebrtc/lib" \
 	-DCMAKE_C_FLAGS="-isystem $blddir/libwebrtc/include -isystem $blddir/libyuv/include -L$blddir/libwebrtc/lib -L$blddir/libyuv -Wno-deprecated-declarations -Wl,-rpath-link,$blddir/libwebrtc/lib" \
-	-DCMAKE_LD_FLAGS="-L$blddir/libwebrtc/lib -L$blddir/libyuv/lib" \
-	-DCMAKE_LIBRARY_PATH="$blddir/libwebrtc/lib:$blddir/libyuv/lib" \
-	-DWebRTCOutDir="$blddir/libwebrtc/webrtc/src/out/Release/obj/webrtc/" \
-	-DWebRTCLibDir="$blddir/libwebrtc/webrtc/src/out/Release/obj/webrtc/" \
+	-DWebRTCLibDir="$blddir/libwebrtc/lib" \
 		$srcdir/3rdparty/qwebrtc
-make -j8
+make VERBOSE=1 -j8
 make install
 if [ ! -d $insdir/lib/$ARCH_TRIPLET ]; then
 	mkdir -p $insdir/lib/$ARCH_TRIPLET
